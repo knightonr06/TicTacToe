@@ -1,13 +1,37 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+// SafeInput.java
+import java.util.Scanner;
+
+public class SafeInput {
+    public static int getRangedInt(Scanner console, String prompt, int low, int high) {
+        int value = 0;
+        while (true) {
+            System.out.print(prompt + " ");
+            String line = console.nextLine().trim();
+            try {
+                value = Integer.parseInt(line);
+                if (value >= low && value <= high) {
+                    return value;
+                } else {
+                    System.out.println("Error: value must be between " + low + " and " + high + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: please enter a valid integer.");
+            }
+        }
+    }
+
+    public static boolean getYNConfirm(Scanner console, String prompt) {
+        while (true) {
+            System.out.print(prompt + " (Y/N) ");
+            String resp = console.nextLine().trim().toLowerCase();
+            if (resp.equals("y") || resp.equals("yes")) {
+                return true;
+            } else if (resp.equals("n") || resp.equals("no")) {
+                return false;
+            } else {
+                System.out.println("Please enter Y or N.");
+            }
+        }
+    }
 }
